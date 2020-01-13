@@ -1,31 +1,38 @@
 ﻿using System;
+using CollectionViewSample.ViewModels;
+using CollectionViewSample.Views;
+using Prism;
+using Prism.Ioc;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CollectionViewSample
 {
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
             InitializeComponent();
+        }
+        
+        public App(IPlatformInitializer platformInitializer) : base(platformInitializer)
+        {
 
-            MainPage = new MainPage();
         }
 
-        protected override void OnStart()
+        protected override void OnInitialized()
         {
-            // Handle when your app starts
+            InitializeComponent();
+
+            // 起動直後にMainPageを表示する。
+            NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        protected override void OnSleep()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Handle when your app sleeps
-        }
+            containerRegistry.RegisterForNavigation<NavigationPage>();
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            // View「MainPage」ViewModels「MainPageViewModel」を登録する。
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
         }
     }
 }
