@@ -17,5 +17,10 @@ namespace CollectionViewSample.Views
         {
             InitializeComponent();
         }
+
+        public void OnClickedTest(object sender, EventArgs args)
+        {
+
+        }
     }
 }

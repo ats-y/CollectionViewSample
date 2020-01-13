@@ -5,12 +5,45 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="CollectionViewSample.Views.MainPage">
+    x:Class="CollectionViewSample.Views.MainPage"
+    Title="{Binding PageTitle}">
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label
-            Text="Welcome to Xamarin.Forms!"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand" />
+
+        <Button
+            Text="test"
+            Clicked="OnClickedTest" />
+
+        <CollectionView
+            x:Name="ScheduleCollectionView"
+            BackgroundColor="Bisque"
+            ItemsSource="{Binding Schedules}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <StackLayout
+                        Padding="5,0,5,5">
+                        <Frame
+                            HasShadow="False"
+                            Padding="10,100,10,100"
+                            BorderColor="Gray">
+
+                            <StackLayout>
+                                <Label
+                                    Text="{Binding Time
+                                , StringFormat='{0:yyyy/M/d H:mm}'}" />
+
+                                <Label
+                                    Text="{Binding Title}" />
+
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
     </StackLayout>
 </ContentPage>
