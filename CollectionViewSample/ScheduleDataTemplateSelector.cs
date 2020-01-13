@@ -4,6 +4,9 @@ using Xamarin.Forms;
 
 namespace CollectionViewSample
 {
+    /// <summary>
+    /// スケジュール項目表示用DataTemplateのセレクタ。
+    /// </summary>
     public class ScheduleDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate ScheduleTemplate { get; set; }
