@@ -14,17 +14,40 @@
                 <Label
                     Text="{Binding Time
                         , StringFormat='{0:yyyy/M/d H:mm}'}" />
-                 <Label
+                <Label
                     Text="{Binding PeriodTo
                         , StringFormat=' 〜 {0:yyyy/M/d H:mm}'}" />
             </StackLayout>
 
-            <Label
-                Text="{Binding Title}" />
-            <Label
-                Text="{Binding Memo}"/>
-            <Label
-                Text="{Binding Place}"/>
+            <!-- 詳細表示切り替えチェックボックス -->
+            <CheckBox
+                x:Name="DetailDisplaySwitch"
+                IsChecked="{Binding IsVisibleDetail}" />
+
+            <!-- 詳細表示エリア -->
+            <StackLayout>
+                <StackLayout.Triggers>
+
+                    <!--
+                    詳細表示切り替えチェックボックスの値がfalseになったら
+                    表際エリアを非表示にする
+                    -->
+                    <DataTrigger
+                        TargetType="StackLayout"
+                        Binding="{Binding Source={x:Reference DetailDisplaySwitch}
+                                    , Path='IsChecked'}"
+                        Value="False">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </StackLayout.Triggers>
+
+                <Label
+                    Text="{Binding Title}" />
+                <Label
+                    Text="{Binding Memo}" />
+                <Label
+                    Text="{Binding Place}" />
+            </StackLayout>
         </StackLayout>
 
     </ContentView.Content>

@@ -39,7 +39,7 @@ namespace CollectionViewSample.Models
                 new Schedule
                 {
                     Time = new DateTime(2020,1,8,12,00,00),
-                    Title = "起床",
+                    Title = "昼休み",
                 },
                 new Schedule
                 {
