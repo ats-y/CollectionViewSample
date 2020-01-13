@@ -4,46 +4,78 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:CollectionViewSample"
+    xmlns:views="clr-namespace:CollectionViewSample.Views"
     mc:Ignorable="d"
     x:Class="CollectionViewSample.Views.MainPage"
+    x:Name="NameOfMainPage"
     Title="{Binding PageTitle}">
+
+    <ContentPage.Resources>
+
+        <!-- 通常スケジュール項目用DataTemplate -->
+        <DataTemplate
+            x:Key="DataTemplateSchedule">
+            <StackLayout
+                Padding="5,0,5,5">
+
+                <!-- タップ操作の実装 -->
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={x:Reference NameOfMainPage}
+                                , Path='BindingContext.TapCommand'}"
+                        CommandParameter="{Binding .}" />
+                </StackLayout.GestureRecognizers>
+
+                <!-- 通常スケジュール項目の表示レイアウト -->
+                <Frame
+                    HasShadow="False"
+                    Padding="10,100,10,100"
+                    BorderColor="Red">
+                    <views:ScheduleView />
+                </Frame>
+            </StackLayout>
+        </DataTemplate>
+
+        <!-- 期間スケジュール用DataTemplate -->
+        <DataTemplate
+            x:Key="SchedulePeriod">
+
+            <StackLayout
+                Padding="5,0,5,5">
+                <Frame
+                    HasShadow="False"
+                    Padding="10,100,10,100"
+                    BorderColor="Red">
+                    <views:SchedulePeriodView />
+                </Frame>
+            </StackLayout>
+        </DataTemplate>
+
+        <!-- スケジュール表示テンプレートセレクタ -->
+        <local:ScheduleDataTemplateSelector
+            x:Key="ScheduleSelector"
+            ScheduleTemplate="{StaticResource DataTemplateSchedule}"
+            SchedulePeriodTemplate="{StaticResource SchedulePeriod}" />
+
+
+    </ContentPage.Resources>
+
+    <!-- MainPageのレイアウト -->
     <StackLayout>
 
         <Button
             Text="test"
             Clicked="OnClickedTest" />
 
+        <!-- スケジュールCollectionView -->
         <CollectionView
             x:Name="ScheduleCollectionView"
             BackgroundColor="Bisque"
-            ItemsSource="{Binding Schedules}">
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-
-                    <StackLayout
-                        Padding="5,0,5,5">
-                        <Frame
-                            HasShadow="False"
-                            Padding="10,100,10,100"
-                            BorderColor="Gray">
-
-                            <StackLayout>
-                                <Label
-                                    Text="{Binding Time
-                                , StringFormat='{0:yyyy/M/d H:mm}'}" />
-
-                                <Label
-                                    Text="{Binding Title}" />
-
-                            </StackLayout>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
+            SelectionMode="None"
+            ItemsSource="{Binding Schedules}"
+            ItemTemplate="{StaticResource ScheduleSelector}">
         </CollectionView>
-
 
     </StackLayout>
 </ContentPage>

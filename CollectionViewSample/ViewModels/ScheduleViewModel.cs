@@ -10,12 +10,9 @@ namespace CollectionViewSample.ViewModels
         public ScheduleViewModel(Schedule schedule)
         {
             _schedule = schedule;
-            Title = _schedule.Title;
         }
 
         public DateTime Time { get => _schedule.Time; }
-
-        public string Title { get; set; }
-
+        public string Title { get => _schedule.Title; }
     }
 }
