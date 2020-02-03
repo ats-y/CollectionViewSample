@@ -33,6 +33,7 @@ namespace CollectionViewSample
 
             // View「MainPage」ViewModels「MainPageViewModel」を登録する。
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReminderEditPage, ReminderEditPageViewModel>();
         }
     }
 }

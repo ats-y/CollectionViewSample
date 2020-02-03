@@ -38,12 +38,12 @@
             <StackLayout
                 Padding="{StaticResource ScheduleRowPading}">
                 <!-- タップ操作の実装 -->
-                <!--<StackLayout.GestureRecognizers>
-                <TapGestureRecognizer
-                    Command="{Binding Source={x:Reference NameOfMainPage}
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={x:Reference NameOfMainPage}
                                 , Path='BindingContext.TapCommand'}"
-                    CommandParameter="{Binding .}" />
-            </StackLayout.GestureRecognizers>-->
+                        CommandParameter="{Binding .}" />
+                </StackLayout.GestureRecognizers>
                 <views:ScheduleView />
 
                 <BoxView
@@ -54,6 +54,7 @@
         <!-- 期間スケジュール用DataTemplate -->
         <DataTemplate
             x:Key="SchedulePeriod">
+
             <StackLayout
                 Padding="{StaticResource ScheduleRowPading}">
                 <views:SchedulePeriodView />
@@ -67,6 +68,16 @@
             x:Key="ScheduleReminder">
             <StackLayout
                 Padding="{StaticResource ScheduleRowPading}">
+
+                <!-- タップコマンドの実装 -->
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={x:Reference NameOfMainPage}
+                                , Path='BindingContext.TapReminderCommand'}"
+                        CommandParameter="{Binding .}" />
+                </StackLayout.GestureRecognizers>
+
+                <!-- 表示エリア -->
                 <views:ScheduleReminderView />
                 <BoxView
                     Style="{StaticResource RowBorderStyle}" />

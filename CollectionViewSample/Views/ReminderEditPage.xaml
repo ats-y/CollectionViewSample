@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CollectionViewSample.Views.ReminderEditPage"
+    x:Name="Page"
+    Title="リマインダの編集">
+
+    <!-- 自前のタイトルバー -->
+    <NavigationPage.TitleView>
+        <AbsoluteLayout>
+
+            <!-- タイトル -->
+            <StackLayout
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize">
+                <Label
+                    Text="{Binding Source={x:Reference Page},
+                                  Path=Title}"
+                    FontSize="Header"
+                    FontAttributes="Bold" />
+            </StackLayout>
+
+            <!-- やめるボタン -->
+            <Button
+                Text="やめる"
+                FontSize="Header"
+                Command="{Binding CancelCommand}" />
+        </AbsoluteLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Button
+                Text="やめる"
+                Command="{Binding CancelCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

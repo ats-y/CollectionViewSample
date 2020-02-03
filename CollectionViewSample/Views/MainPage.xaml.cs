@@ -48,7 +48,7 @@ namespace CollectionViewSample.Views
         {
             base.OnAppearing();
 
-            ViewModel.ShowSchedule();
+            //ViewModel.ShowSchedule();
         }
     }
 }

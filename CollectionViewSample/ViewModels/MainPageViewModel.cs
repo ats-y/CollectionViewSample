@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CollectionViewSample.Models;
 using Prism.Navigation;
 using Prism.Services;
 using Reactive.Bindings;
+using Xamarin.Forms;
 
 namespace CollectionViewSample.ViewModels
 {
     /// <summary>
     /// MainPage ViewModel
     /// </summary>
-    public class MainPageViewModel
+    public class MainPageViewModel : INavigatedAware
     {
         /// <summary>
         /// ページタイトル。
@@ -37,25 +39,40 @@ namespace CollectionViewSample.ViewModels
         public ReactiveCommand TapCommand { get; set; } = new ReactiveCommand();
 
         /// <summary>
+        /// リマインダ行タップコマンド。
+        /// </summary>
+        public Command<ScheduleReminderViewModel> TapReminderCommand { get; set; }
+
+        /// <summary>
         /// ダイアログサービス。
         /// </summary>
         protected IPageDialogService _dialogPageService;
+
+        protected INavigationService _navigationService;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="dialogPageService"></param>
-        public MainPageViewModel(IPageDialogService dialogPageService)
+        public MainPageViewModel(IPageDialogService dialogPageService
+            , INavigationService navigationService)
         {
             _dialogPageService = dialogPageService;
+            _navigationService = navigationService;
 
             // スケジュール一覧に表示するスケジュールを取得し、項目のViewModelを作成する。
             _manager = new ScheduleManager();
 
             // スケジュール一覧の項目タップ処理を実装。
             TapCommand.Subscribe(x => OnTapCommandAsync(x));
-        }
 
+            // リマインダ行タップコマンドの実装。
+            TapReminderCommand = new Command<ScheduleReminderViewModel>( async x =>
+            {
+                Debug.WriteLine("TapReminderCommand");
+                await _navigationService.NavigateAsync("NavigationPage/ReminderEditPage", useModalNavigation: true);
+            });
+        }
 
         /// <summary>
         /// スケジュール一覧の項目タップ処理。
@@ -93,6 +110,18 @@ namespace CollectionViewSample.ViewModels
                 {
                     Schedules.Add(new ScheduleViewModel(schedule));
                 }
+            }
+        }
+
+        public void OnNavigatedFrom(INavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if( parameters.GetNavigationMode() == NavigationMode.New)
+            {
+                ShowSchedule();
             }
         }
     }
