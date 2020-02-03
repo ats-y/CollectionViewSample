@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CollectionViewSample.ViewModels;
 using Xamarin.Forms;
 
 namespace CollectionViewSample.Views
@@ -14,6 +15,8 @@ namespace CollectionViewSample.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private MainPageViewModel ViewModel { get => BindingContext as MainPageViewModel; }
+
         public MainPage()
         {
             try
@@ -29,7 +32,23 @@ namespace CollectionViewSample.Views
 
         public void OnClickedTest(object sender, EventArgs args)
         {
+            ViewModel.ShowSchedule();
 
+            //if (ScheduleCollectionView.ItemSizingStrategy == ItemSizingStrategy.MeasureFirstItem)
+            //{
+            //    ScheduleCollectionView.ItemSizingStrategy = ItemSizingStrategy.MeasureAllItems;
+            //}
+            //else
+            //{
+            //    ScheduleCollectionView.ItemSizingStrategy = ItemSizingStrategy.MeasureFirstItem;
+            //}
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            ViewModel.ShowSchedule();
         }
     }
 }

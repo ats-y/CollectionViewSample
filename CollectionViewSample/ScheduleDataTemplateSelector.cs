@@ -11,15 +11,22 @@ namespace CollectionViewSample
     {
         public DataTemplate ScheduleTemplate { get; set; }
         public DataTemplate SchedulePeriodTemplate { get; set; }
+        public DataTemplate ScheduleReminderTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if(item is SchedulePeriodViewModel)
+            if (item is SchedulePeriodViewModel)
             {
                 return SchedulePeriodTemplate;
             }
-
-            return ScheduleTemplate;
+            else if (item is ScheduleReminderViewModel)
+            {
+                return ScheduleReminderTemplate;
+            }
+            else
+            {
+                return ScheduleTemplate;
+            }
         }
     }
 }

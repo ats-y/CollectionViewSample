@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using CollectionViewSample.Models;
+using Prism.Navigation;
 using Prism.Services;
 using Reactive.Bindings;
 
@@ -49,23 +51,11 @@ namespace CollectionViewSample.ViewModels
 
             // スケジュール一覧に表示するスケジュールを取得し、項目のViewModelを作成する。
             _manager = new ScheduleManager();
-            List<Schedule> schedules = _manager.Get();
-            foreach (Schedule schedule in schedules)
-            {
-                if (schedule is SchedulePeriod)
-                {
-                    Schedules.Add(new SchedulePeriodViewModel((SchedulePeriod)schedule));
-                }
-                else
-                {
-                    Schedules.Add(new ScheduleViewModel(schedule));
-                }
-            }
 
             // スケジュール一覧の項目タップ処理を実装。
             TapCommand.Subscribe(x => OnTapCommandAsync(x));
-
         }
+
 
         /// <summary>
         /// スケジュール一覧の項目タップ処理。
@@ -78,6 +68,32 @@ namespace CollectionViewSample.ViewModels
             if (x == null) return;
 
             await _dialogPageService.DisplayAlertAsync("タップ", tappedVm.Title, "OK");
+        }
+
+        public void OnNavigatingTo(INavigationParameters parameters)
+        {
+        }
+
+        public void ShowSchedule()
+        {
+            Schedules.Clear();
+
+            List<Schedule> schedules = _manager.Get();
+            foreach (Schedule schedule in schedules)
+            {
+                if (schedule is SchedulePeriod)
+                {
+                    Schedules.Add(new SchedulePeriodViewModel((SchedulePeriod)schedule));
+                }
+                else if (schedule is ScheduleReminder)
+                {
+                    Schedules.Add(new ScheduleReminderViewModel((ScheduleReminder)schedule));
+                }
+                else
+                {
+                    Schedules.Add(new ScheduleViewModel(schedule));
+                }
+            }
         }
     }
 }

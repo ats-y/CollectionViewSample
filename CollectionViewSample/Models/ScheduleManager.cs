@@ -13,7 +13,7 @@ namespace CollectionViewSample.Models
         {
             return new List<Schedule>()
             {
-                new Schedule
+                new SchedulePeriod
                 {
                     Time = new DateTime(2020,1,8,4,50,00),
                     Title = "起床",
@@ -41,10 +41,32 @@ namespace CollectionViewSample.Models
                     Time = new DateTime(2020,1,8,12,00,00),
                     Title = "昼休み",
                 },
+                new ScheduleReminder
+                {
+                     Time = new DateTime(2020,1,8,13,00,00),
+                     Title = "午後一打ち合わせ",
+                     Notifications = new List<int>
+                     {
+                         5,
+                         10,
+                         20,
+                         30,
+                     },
+                },
                 new Schedule
                 {
                     Time = new DateTime(2020,1,8,17,30,0),
                     Title = "退社",
+                },
+                new Schedule
+                {
+                    Time = new DateTime(2020,1,8,20,30,0),
+                    Title = "夕食",
+                },
+                new Schedule
+                {
+                    Time = new DateTime(2020,1,8,23,30,0),
+                    Title = "就寝",
                 },
             };
         }

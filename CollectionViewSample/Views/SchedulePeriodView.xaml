@@ -8,6 +8,9 @@
     <ContentView.Content>
         <StackLayout>
 
+            <Label
+                Text="期間予定" />
+
             <!-- 予定時間（開始・終了）-->
             <StackLayout
                 Orientation="Horizontal">
@@ -22,10 +25,12 @@
             <!-- 詳細表示切り替えチェックボックス -->
             <CheckBox
                 x:Name="DetailDisplaySwitch"
+                CheckedChanged="OnCheckedChangedExpand"
                 IsChecked="{Binding IsVisibleDetail}" />
 
             <!-- 詳細表示エリア -->
-            <StackLayout>
+            <StackLayout
+                x:Name="DetailArea">
                 <StackLayout.Triggers>
 
                     <!--
@@ -37,8 +42,11 @@
                         Binding="{Binding Source={x:Reference DetailDisplaySwitch}
                                     , Path='IsChecked'}"
                         Value="False">
-                        <Setter Property="IsVisible" Value="False"/>
+                        <Setter
+                            Property="IsVisible"
+                            Value="False" />
                     </DataTrigger>
+
                 </StackLayout.Triggers>
 
                 <Label

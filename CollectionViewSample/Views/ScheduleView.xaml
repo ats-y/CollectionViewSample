@@ -8,10 +8,13 @@
     <ContentView.Content>
         <StackLayout>
             <Label
+                Text="単一予定"/>
+            <Label
                 Text="{Binding Time
                         , StringFormat='{0:yyyy/M/d H:mm}'}" />
             <Label
                 Text="{Binding Title}" />
+
         </StackLayout>
     </ContentView.Content>
 </ContentView>

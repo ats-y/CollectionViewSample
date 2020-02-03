@@ -8,5 +8,11 @@
     mc:Ignorable="d"
     x:Class="CollectionViewSample.App">
     <Application.Resources>
+
+        <ResourceDictionary>
+            <Thickness
+                x:Key="ScheduleRowPading">10,10,10,10</Thickness>
+        </ResourceDictionary>
+
     </Application.Resources>
 </prism:PrismApplication>

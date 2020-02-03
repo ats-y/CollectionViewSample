@@ -10,5 +10,10 @@ namespace CollectionViewSample.Views
         {
             InitializeComponent();
         }
+
+        public void OnCheckedChangedExpand(object sender,CheckedChangedEventArgs args)
+        {
+            
+        }
     }
 }
